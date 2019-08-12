@@ -25,16 +25,16 @@ const gameStart = {
     key: 'gameStart',
     preload: function(){
         // 載入圖片
-        this.load.image('bg', '../img/bg.svg');
-        this.load.image('ball_1', '../img/Ball_01.svg');
-        this.load.image('ball_2', '../img/Ball_02.svg');
-        this.load.image('ball_3', '../img/Ball_03.svg');
+        this.load.image('bg', './img/bg.svg');
+        this.load.image('ball_1', './img/Ball_01.svg');
+        this.load.image('ball_2', './img/Ball_02.svg');
+        this.load.image('ball_3', './img/Ball_03.svg');
         //this.load.image('ball_4', '../img/Ball_04.svg');
-        this.load.image('ball_5', '../img/Ball_05.svg');
-        this.load.image('duck', '../img/duck_normal_03.svg');
-        this.load.image('boss', '../img/Boss_01.svg');
-        this.load.image('star', '../img/SuperStar.svg');
-        this.load.image('btn', '../img/btn_start_off.svg');
+        this.load.image('ball_5', './img/Ball_05.svg');
+        this.load.image('duck', './img/duck_normal_03.svg');
+        this.load.image('boss', './img/Boss_01.svg');
+        this.load.image('star', './img/SuperStar.svg');
+        this.load.image('btn', './img/btn_start_off.svg');
     },
     create: function(){
         // 把圖片放到畫面上
@@ -75,18 +75,18 @@ const gamePlay = {
     key: 'gamePlay',
     preload: function(){
         // 載入圖片
-        this.load.image('bg', '../img/bg.svg');
-        this.load.image('ball_1', '../img/Ball_01.svg');
-        this.load.image('ball_2', '../img/Ball_02.svg');
-        this.load.image('ball_3', '../img/Ball_03.svg');
-        this.load.image('ball_4', '../img/Ball_04.svg');
-        this.load.image('ball_5', '../img/Ball_05.svg');
-        this.load.image('duck_normal_1', '../img/duck_normal_01.svg');
-        this.load.image('duck_normal_2', '../img/duck_normal_02.svg');
-        this.load.image('duck_normal_3', '../img/duck_normal_03.svg');
-        this.load.image('boss', '../img/Boss_01.svg');
-        this.load.image('star', '../img/SuperStar.svg');
-        this.load.image('btn', '../img/btn_start_off.svg');
+        this.load.image('bg', './img/bg.svg');
+        this.load.image('ball_1', './img/Ball_01.svg');
+        this.load.image('ball_2', './img/Ball_02.svg');
+        this.load.image('ball_3', './img/Ball_03.svg');
+        this.load.image('ball_4', './img/Ball_04.svg');
+        this.load.image('ball_5', './img/Ball_05.svg');
+        this.load.image('duck_normal_1', './img/duck_normal_01.svg');
+        this.load.image('duck_normal_2', './img/duck_normal_02.svg');
+        this.load.image('duck_normal_3', './img/duck_normal_03.svg');
+        this.load.image('boss', './img/Boss_01.svg');
+        this.load.image('star', './img/SuperStar.svg');
+        this.load.image('btn', './img/btn_start_off.svg');
     },
     create: function(){
         // 設定鴨子移動邊界
