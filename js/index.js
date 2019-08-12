@@ -1,6 +1,26 @@
 const w = 720;
 const h = 540;
 
+// 隨機
+const getRandom = (max, min) =>{
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+// 簡單模式下球的y座標
+const getEasyRandomPosY = () =>{
+    let exist = [];
+    let val = getRandom(10, 1);
+    while(exist.length < 5) {
+        if(exist.indexOf(val) != -1) {
+            val = getRandom(10, 1);
+        }else {
+            exist.push(val);
+        }
+    }
+    return exist;
+};
+
+
+
 const gameStart = {
     key: 'gameStart',
     preload: function(){
@@ -47,7 +67,7 @@ const gameStart = {
     },
     update: function(){
         // 背景移動
-        this.bg.tilePositionY += 2;
+        this.bg.tilePositionY -= 2;
     }
 }
 
@@ -59,7 +79,7 @@ const gamePlay = {
         this.load.image('ball_1', '../img/Ball_01.svg');
         this.load.image('ball_2', '../img/Ball_02.svg');
         this.load.image('ball_3', '../img/Ball_03.svg');
-        //this.load.image('ball_4', '../img/Ball_04.svg');
+        this.load.image('ball_4', '../img/Ball_04.svg');
         this.load.image('ball_5', '../img/Ball_05.svg');
         this.load.image('duck_normal_1', '../img/duck_normal_01.svg');
         this.load.image('duck_normal_2', '../img/duck_normal_02.svg');
@@ -75,7 +95,7 @@ const gamePlay = {
         // 一格 90*90
         this.bg = this.add.tileSprite(w/2, h/2, 1200, 900 ,'bg');
         this.bg.setScale(0.6); 
-        this.duck = this.physics.add.sprite(w/2, h-90, 'duck');
+        this.duck = this.physics.add.sprite(w/2, h-90, 'duck_normal_1');
         this.duck.setScale(0.6);
         this.duck.setCollideWorldBounds(true);
         // 設定鴨子動畫
@@ -90,14 +110,48 @@ const gamePlay = {
             repeat: -1
         });
         this.duck.anims.play('swim', true);
-
-
+        // 設定球座標：簡單
+        this.easyY = getEasyRandomPosY();
+        this.easyY_exist = [];
+        this.ball_1 = this.add.sprite(w/2, -90*this.easyY[0], 'ball_1');
+        this.ball_2 = this.add.sprite(w/2-104, -90*this.easyY[1], 'ball_2');
+        this.ball_3 = this.add.sprite(w/2-208, -90*this.easyY[2], 'ball_3');
+        this.ball_4 = this.add.sprite(w/2+104, -90*this.easyY[3], 'ball_4');
+        this.ball_5 = this.add.sprite(w/2+208, -90*this.easyY[4], 'ball_5');
+        this.ball_1.setScale(0.6);
+        this.ball_2.setScale(0.6);
+        this.ball_3.setScale(0.6);
+        this.ball_4.setScale(0.6);
+        this.ball_5.setScale(0.6);
+        
         //this.duck.body.immovable = true;
         //this.duck.body.moves = false;
     },
     update: function(){
         // 背景移動
-        this.bg.tilePositionY += 2;
+        this.bg.tilePositionY -= 1.5;
+        // 球移動
+        this.ball_1.y += 1.5;
+        this.ball_2.y += 1.5;
+        this.ball_3.y += 1.5;
+        this.ball_4.y += 1.5;
+        this.ball_5.y += 1.5;
+        //this.ball_1.y += 2;
+        // 檢測球是否超出邊界
+        for (let i = 1; i <= 5; i++) {
+            // 簡單
+            if(this['ball_' + i].y >= (h+90)) {
+                let idx = getRandom(4,0);
+                while(this.easyY_exist.indexOf(idx) != -1) {
+                    idx = getRandom(4,0);
+                }
+                this.easyY_exist.push(idx);
+                if(this.easyY_exist.length >= 5) {
+                    this.easyY_exist = [];
+                }
+                this['ball_' + i].y = (-90*this.easyY[idx]);
+            }
+        }
         // 操作物件
         const keyboard = this.input.keyboard.createCursorKeys();
         if(keyboard.right.isDown) {
@@ -130,9 +184,9 @@ const config = {
             // gravity: {
             //     y: 700
             // },
-            // debug: true
+            debug: true
         }
     },
-    scene: [gameStart, gamePlay]
+    scene: [gamePlay,gameStart, ]
 }
 const game = new Phaser.Game(config);
